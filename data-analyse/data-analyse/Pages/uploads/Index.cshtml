@@ -1,0 +1,24 @@
+﻿@page
+@model data_analyse.Pages.Uploads.IndexModel
+@{
+    ViewData["Title"] = "بارگذاری فایل";
+}
+
+<h2 dir="rtl">بارگذاری فایل برای تحلیل</h2>
+
+<form method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div dir="rtl">
+        <p>فرمت‌های مجاز: xls, xlsx, txt — حداکثر 50MB</p>
+
+        <input asp-for="File" type="file" accept=".xls,.xlsx,.txt" />
+
+        <button type="submit">آپلود</button>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <p dir="rtl">@Model.Message</p>
+}
