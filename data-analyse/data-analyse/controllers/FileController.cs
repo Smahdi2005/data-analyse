@@ -23,41 +23,22 @@ namespace data_analyse.Controllers
 
 
         }
-        [HttpGet]
-        public async Task<IActionResult> StartAnalys(Guid id)
+        [HttpPost]
+        public IActionResult StartAnalys(Guid id)
         {
-            var file = await _db.UploadFiles.FindAsync(id);
+            var file = _db.UploadFiles.Find(id);
             if (file == null)
             {
-                TempData["Error"] = "فایل پیدا نشد.";
+                TempData["Error"] = "فایل پیدا نشد";
                 return RedirectToAction(nameof(ManageFiles));
             }
-            // ابتدا بررسی می‌کنیم که نوع فایل چیه
-            if (file.OriginalFileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
-            {
-                // اگر فایل متنی (.txt) باشه، تحلیل متن انجام میشه
-                await _fileAnalysisService.AnalyzeTextFileAsync(file.Id, CancellationToken.None);
-            }
-            else if (file.OriginalFileName.EndsWith(".xls", StringComparison.OrdinalIgnoreCase) ||
-                     file.OriginalFileName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
-            {
-                // اگر فایل اکسل (.xls یا .xlsx) باشه، تحلیل اکسل انجام میشه
-                await _fileAnalysisService.AnalyzeExcelFileAsync(file.Id, CancellationToken.None);
-            }
-            else
-            {
-                // اگر نوع فایل چیز دیگه‌ای باشه، تحلیل عمومی انجام میشه
-                await _fileAnalysisService.AnalyzeOtherFileAsync(file.Id, CancellationToken.None);
-            }
-
-            // پیام موفقیت برای شروع تحلیل
-            TempData["Message"] = "تحلیل فایل شروع شد.";
-
-            // بازگشت به صفحه مدیریت فایل‌ها
+            _fileAnalysService.StartAnalyse(file.Id);
+            TempData["Message"] = "تحلیل فایل شروغ شد";
             return RedirectToAction(nameof(ManageFiles));
-
-
         }
+        
+
+
     }
-    
+
 }

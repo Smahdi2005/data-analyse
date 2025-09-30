@@ -1,0 +1,37 @@
+﻿@page
+@model data_analyse.Pages.File.ManageFilesModel
+
+
+<h2>پنل مدیریت فایل‌ها</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div style="color:green">@TempData["Message"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div style="color:red">@TempData["Error"]</div>
+}
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>نام فایل</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var file in Model.Files)
+        {
+            <tr>
+                <td>@file.OriginalFileName</td>
+                <td>
+                    <form method="post" asp-action="StartAnalysis" asp-route-id="@file.Id">
+                        <button type="submit">انتخاب برای تحلیل</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

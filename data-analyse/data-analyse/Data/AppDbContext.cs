@@ -1,4 +1,4 @@
-﻿using data_analyse._ٍEntities;
+﻿using data_analyse.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace data_analyse.Data

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace data_analyse._ٍEntities
+namespace data_analyse.Data
 
 {
     public class UploadFile

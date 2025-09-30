@@ -1,4 +1,5 @@
 using data_analyse.Data;
+using data_analyse.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+
+builder.Services.AddScoped<IFileAnalysService, FileAnalysService>();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 

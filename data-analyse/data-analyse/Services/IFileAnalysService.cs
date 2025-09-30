@@ -2,5 +2,6 @@
 {
     public interface IFileAnalysService
     {
+        void StartAnalyse(Guid uploadFileId);
     }
 }

@@ -6,19 +6,23 @@
 
 <h2 dir="rtl">بارگذاری فایل برای تحلیل</h2>
 
+
+@if (TempData["Message"] != null)
+{
+    <div style="color:green">@TempData["Message"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div style="color:red">@TempData["Error"]</div>
+}
+
+
 <form method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
 
-    <div dir="rtl">
-        <p>فرمت‌های مجاز: xls, xlsx, txt — حداکثر 50MB</p>
-
-        <input asp-for="File" type="file" accept=".xls,.xlsx,.txt" />
+        <input asp-for="File" type="file"/>
 
         <button type="submit">آپلود</button>
-    </div>
+    
 </form>
 
-@if (!string.IsNullOrEmpty(Model.Message))
-{
-    <p dir="rtl">@Model.Message</p>
-}
