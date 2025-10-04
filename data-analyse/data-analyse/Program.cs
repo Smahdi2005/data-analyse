@@ -9,10 +9,10 @@ builder.Services.AddRazorPages();
 
 // efcore conection
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-builder.Services.AddScoped<IFileAnalysService, FileAnalysService>();
+builder.Services.AddScoped<IFileAnalysService, FileAnalyseService>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

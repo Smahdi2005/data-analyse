@@ -24,16 +24,30 @@ namespace data_analyse.Controllers
 
         }
         [HttpPost]
-        public IActionResult StartAnalys(Guid id)
+        public async Task<IActionResult> StartAnalys(Guid fileId)
         {
-            var file = _db.UploadFiles.Find(id);
+            var file = await _db.UploadFiles.FindAsync(fileId);
             if (file == null)
             {
                 TempData["Error"] = "فایل پیدا نشد";
                 return RedirectToAction(nameof(ManageFiles));
             }
-            _fileAnalysService.StartAnalyse(file.Id);
-            TempData["Message"] = "تحلیل فایل شروغ شد";
+            if (file.OriginalFileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+            {
+                await _fileAnalysService.AnalyseTextFileAsync(file.Id, CancellationToken.None);
+            }
+            else if (file.OriginalFileName.EndsWith(".xls", StringComparison.OrdinalIgnoreCase) ||
+                     file.OriginalFileName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                await _fileAnalysService.AnalyseExelFileAsync(file.Id, CancellationToken.None);
+            }
+            else
+            {
+                TempData["Error"] = "فرمت فایل پشتیبانی نمی‌شود!";
+                return RedirectToAction(nameof(ManageFiles));
+            }
+
+            TempData["Message"] = "تحلیل فایل شروع شد!";
             return RedirectToAction(nameof(ManageFiles));
         }
         

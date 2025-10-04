@@ -2,6 +2,9 @@
 {
     public interface IFileAnalysService
     {
-        void StartAnalyse(Guid uploadFileId);
+
+        Task AnalyseTextFileAsync(Guid uploadFileId, CancellationToken cancellationToken);
+        Task AnalyseExelFileAsync(Guid uploadFileId, CancellationToken cancellationToken);
+
     }
 }

@@ -9,6 +9,7 @@ namespace data_analyse.Data
 
         public DbSet<UploadFile> UploadFiles => Set<UploadFile>();
 
+        public DbSet<AnalyseResult> AnalyseResults { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UploadFile>()
@@ -16,4 +17,5 @@ namespace data_analyse.Data
                 .HasColumnType("varbinary(max)");
         }
     }
+
 }
