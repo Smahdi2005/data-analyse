@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using data_analyse.Data;
 using data_analyse.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+
 namespace data_analyse.Pages.File
 {
     public class ManageFilesModel : PageModel  // این نام باید مطابق با @model در فایل Razor باشد
@@ -15,13 +17,13 @@ namespace data_analyse.Pages.File
         {
             _db = db;
         }
+        public List<UploadFile> Files { get; set; } = new List<UploadFile>();  // لیست فایل‌های آپلود شده
 
-        public IList<UploadFile> Files { get; set; }  // لیست فایل‌های آپلود شده
-
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            // اینجا فایل‌ها رو از دیتابیس می‌گیریم
-            Files = _db.UploadFiles.ToList();
+            Files = await _db.UploadFiles
+                             .OrderByDescending(f => f.CreatedAtUtc)
+                             .ToListAsync();
         }
 
         [BindProperty]

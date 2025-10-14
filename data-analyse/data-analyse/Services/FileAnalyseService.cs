@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using data_analyse.Data;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
-using ClosedXML.Excel;
 
 
 
@@ -47,7 +47,7 @@ namespace data_analyse.Services
 
 
             int totalwords = words.Length;
-            double avWordLength = words.Length > 0 ? words.Average(w=>w.Length) : 0;
+            double avWordLength = words.Length > 0 ? words.Average(w => w.Length) : 0;
             int totalsentences = sentences.Length;
             var wordFrequency = new Dictionary<string, int>();
 
@@ -63,7 +63,7 @@ namespace data_analyse.Services
                 }
             }
             var topWords = wordFrequency.ToList();
-            topWords.Sort((a,b) => b.Value.CompareTo(a.Value));
+            topWords.Sort((a, b) => b.Value.CompareTo(a.Value));
             topWords = topWords.Take(10).ToList();
 
 
@@ -74,7 +74,7 @@ namespace data_analyse.Services
                 string word = kv.Key;
                 int count = kv.Value;
 
-                double density = ((double)count / totalwords)*100;
+                double density = ((double)count / totalwords) * 100;
                 wordDensity[word] = density;
             }
 
@@ -84,13 +84,13 @@ namespace data_analyse.Services
 
             foreach (var word in words)
             {
-                if(double.TryParse(word, out double num))
+                if (double.TryParse(word, out double num))
                 {
                     numericValues.Add(num);
                 }
             }
 
-            if (numericValues.Count>0)
+            if (numericValues.Count > 0)
             {
                 double sum = numericValues.Sum();
                 double average = numericValues.Average();
@@ -116,7 +116,7 @@ namespace data_analyse.Services
                     {
                         numericAnalyse = numericAnalyse,
                     }),
-                    
+
                 };
             }
 
@@ -136,11 +136,11 @@ namespace data_analyse.Services
 
                 var numericValues = new List<double>();
 
-                foreach(var row in usedRange.Rows())
+                foreach (var row in usedRange.Rows())
                 {
                     foreach (var cell in row.Cells())
                     {
-                        if (double.TryParse(cell.Value.ToString(),out double val))
+                        if (double.TryParse(cell.Value.ToString(), out double val))
                         {
                             numericValues.Add(val);
                         }

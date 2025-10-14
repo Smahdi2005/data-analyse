@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using data_analyse.Data;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using data_analyse.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace data_analyse.Pages.Uploads
 {
@@ -23,7 +23,7 @@ namespace data_analyse.Pages.Uploads
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (File == null|| File.Length == 0)
+            if (File == null || File.Length == 0)
             {
                 TempData["Error"] = "هیچ فایلی انتخاب نشده ";
                 return Page();
@@ -41,7 +41,7 @@ namespace data_analyse.Pages.Uploads
                 return Page();
             }
 
-            if (File.Length> 50 * 1024 * 1024)
+            if (File.Length > 50 * 1024 * 1024)
             {
                 TempData["Error"] = "حجم فایل بیش از حد مجاز است";
                 return Page();

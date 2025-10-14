@@ -25,7 +25,7 @@
         @foreach (var file in Model.Files)
         {
             <tr>
-                <td>@file.OriginalFileName</td>
+                <td>@file?.OriginalFileName</td>
                 <td>
                     <form method="post" asp-action="StartAnalysis" asp-route-id="@file.Id">
                         <button type="submit">انتخاب برای تحلیل</button>

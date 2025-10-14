@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using data_analyse.Data;
+﻿using data_analyse.Data;
 using data_analyse.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace data_analyse.Controllers
 {
@@ -50,7 +50,7 @@ namespace data_analyse.Controllers
             TempData["Message"] = "تحلیل فایل شروع شد!";
             return RedirectToAction(nameof(ManageFiles));
         }
-        
+
 
 
     }
